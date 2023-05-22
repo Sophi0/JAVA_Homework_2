@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -38,8 +40,6 @@ public class Ticket {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateTime;
 	
-	//trip
-	
 	@Column(name = "Price")
 	@Min(0)
 	@Max(1000)
@@ -48,7 +48,13 @@ public class Ticket {
 	@Column(name = "isChild")
 	private boolean isChild;
 	
-	//cashier
+	@ManyToOne
+	@JoinColumn(name = "IDt")
+	private Trip trips;
+	
+	@ManyToOne
+	@JoinColumn(name = "IDc")
+	private Cashier cashiers;
 	
 	public Ticket(@NotNull LocalDateTime dateTime, @Min(0) @Max(1000) float price, boolean isChild) {
 		this.dateTime = dateTime;
