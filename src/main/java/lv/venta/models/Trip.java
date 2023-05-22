@@ -44,7 +44,7 @@ public class Trip {
 	private LocalDateTime dateTime;
 	
 	@Column(name = "Duration")
-	private int durationInMinutes;
+	private float durationInMinutes;
 	
 	@ManyToOne
 	@JoinColumn(name = "IDd")
@@ -59,7 +59,7 @@ public class Trip {
 	private Collection<City> cities = new ArrayList<>();
 	
 
-	public Trip(@NotNull LocalDateTime dateTime, int durationInMinutes) {
+	public Trip(@NotNull LocalDateTime dateTime, float durationInMinutes) {
 		this.dateTime = dateTime;
 		this.durationInMinutes = durationInMinutes;
 	}
