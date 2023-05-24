@@ -52,12 +52,19 @@ public class JavaHomework2Application {
 				ctRepo.save(c1);
 				ctRepo.save(c2);
 				
+				
 				Trip tr1 = new Trip(LocalDateTime.of(2023, 5, 16, 12, 10), 3f);
 				Trip tr2 = new Trip(LocalDateTime.of(2023, 5, 16, 13, 55), 2.5f);
 				Trip tr3 = new Trip(LocalDateTime.of(2023, 5, 16, 19, 00), 5f, dr1, new ArrayList<City>(List.of(c1)));
 				trRepo.save(tr1);
 				trRepo.save(tr2);
 				trRepo.save(tr3);
+				
+				tr1.addCity(c1);
+				trRepo.save(tr1);
+				
+				c1.addTrip(tr3);
+				ctRepo.save(c1);
 				
 				Ticket tk1 = new Ticket(LocalDateTime.of(2023, 3, 15, 15, 30), 7.55f, false, tr1, ch2);
 				Ticket tk2 = new Ticket(LocalDateTime.of(2023, 3, 15, 15, 45), 3.25f, true, tr2, ch1);

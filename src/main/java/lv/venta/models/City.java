@@ -61,5 +61,15 @@ public class City {
 		this.city = city;
 	}
 	
+	public void addTrip(Trip inputTrip) {
+		if(!trips.contains(inputTrip)) {
+			trips.add(inputTrip);
+		}
+	}
 	
+	public void removeTrip(Trip inputTrip) {
+		if(trips.contains(inputTrip)) {
+			trips.remove(inputTrip);
+		}
+	}
 }
