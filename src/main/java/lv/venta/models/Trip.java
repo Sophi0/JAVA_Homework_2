@@ -63,6 +63,15 @@ public class Trip {
 		this.dateTime = dateTime;
 		this.durationInMinutes = durationInMinutes;
 	}
+
+
+	public Trip(@NotNull LocalDateTime dateTime, float durationInMinutes, Driver driver, Collection<City> cities) {
+		this.dateTime = dateTime;
+		this.durationInMinutes = durationInMinutes;
+		this.driver = driver;
+		this.cities = cities;
+	}
+	
 	
 	
 }

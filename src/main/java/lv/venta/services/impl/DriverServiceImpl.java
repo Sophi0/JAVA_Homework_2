@@ -21,7 +21,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	@Override
 	public ArrayList<Driver> retrieveDriverById(long id) throws Exception {
 		if(id > 0) {
-			ArrayList<Driver> filteredResults = drRepo.findByDriverIdd(id);	
+			ArrayList<Driver> filteredResults = drRepo.findByIdd(id);	
 			return filteredResults;
 		}
 		else {
@@ -32,7 +32,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	@Override
 	public ArrayList<Driver> deleteDriverById(long id) throws Exception {
 		if(id > 0) {
-			ArrayList<Driver> filteredResults = drRepo.findByDriverIdd(id);	
+			ArrayList<Driver> filteredResults = drRepo.findByIdd(id);	
 			if(!filteredResults.isEmpty()) {
 				//delete the driver from the repository
 				drRepo.delete(filteredResults.get(0));

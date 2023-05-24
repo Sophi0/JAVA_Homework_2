@@ -32,15 +32,6 @@ public class Cashier extends Person{
 	@Setter(value = AccessLevel.NONE)	
 	private long idc;
 	
-	@NotNull
-	@Size(min = 3, max = 20)
-	@Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš]+)?", message = "Only latin letters")
-	private String name;
-	
-	@NotNull
-	@Size(min = 3, max = 30)
-	@Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš]+)?", message = "Only latin letters")
-	private String surname;
 	
 	@OneToMany(mappedBy = "cashiers")
 	@ToString.Exclude

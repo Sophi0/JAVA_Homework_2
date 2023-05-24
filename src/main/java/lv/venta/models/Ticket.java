@@ -61,6 +61,16 @@ public class Ticket {
 		this.price = price;
 		this.isChild = isChild;
 	}
+
+	public Ticket(@NotNull LocalDateTime dateTime, @Min(0) @Max(1000) float price, boolean isChild, Trip trips,
+			Cashier cashiers) {
+		super();
+		this.dateTime = dateTime;
+		this.price = price;
+		this.isChild = isChild;
+		this.trips = trips;
+		this.cashiers = cashiers;
+	}
 	
 
 	

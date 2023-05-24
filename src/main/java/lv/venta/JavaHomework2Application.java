@@ -1,8 +1,10 @@
 package lv.venta;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -50,15 +52,20 @@ public class JavaHomework2Application {
 				ctRepo.save(c1);
 				ctRepo.save(c2);
 				
-				Ticket tk1 = new Ticket(LocalDateTime.of(2023, 3, 15, 15, 30), 7.55f, false);
-				Ticket tk2 = new Ticket(LocalDateTime.of(2023, 3, 15, 15, 45), 3.25f, true);
-				tkRepo.save(tk1);
-				tkRepo.save(tk2);
-				
-				Trip tr1 = new Trip(LocalDateTime.of(2023, 5, 16, 12, 10), 3);
+				Trip tr1 = new Trip(LocalDateTime.of(2023, 5, 16, 12, 10), 3f);
 				Trip tr2 = new Trip(LocalDateTime.of(2023, 5, 16, 13, 55), 2.5f);
+				Trip tr3 = new Trip(LocalDateTime.of(2023, 5, 16, 19, 00), 5f, dr1, new ArrayList<City>(List.of(c1)));
 				trRepo.save(tr1);
 				trRepo.save(tr2);
+				trRepo.save(tr3);
+				
+				Ticket tk1 = new Ticket(LocalDateTime.of(2023, 3, 15, 15, 30), 7.55f, false, tr1, ch2);
+				Ticket tk2 = new Ticket(LocalDateTime.of(2023, 3, 15, 15, 45), 3.25f, true, tr2, ch1);
+				Ticket tk3 = new Ticket(LocalDateTime.of(2023, 3, 15, 18, 20), 4.44f, true, tr1, ch1);
+				tkRepo.save(tk1);
+				tkRepo.save(tk2);
+				tkRepo.save(tk3);
+				
 			}
 		};
 	}

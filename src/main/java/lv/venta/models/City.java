@@ -38,24 +38,25 @@ public class City {
 	@Column(name = "Title")
 	@NotNull
 	@Size(min = 3, max = 30)
+	@Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+?")
 	private String title;
 	
 	@Column(name = "adressForStation")
 	@NotNull
 	@Size(min = 3, max = 1000)
-	@Pattern(regexp = "/[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš][*][0-1]+)?")
+	//@Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([\\ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš]+[0-9]+)?")
 	private String city;
 	
 	@ManyToMany
-	@JoinTable(name = "trip_table", 
+	@JoinTable(name = "trip_city_table", 
 	joinColumns = @JoinColumn(name = "IDct"), 
-	inverseJoinColumns = @JoinColumn(name = "IDd"))
+	inverseJoinColumns = @JoinColumn(name = "IDt"))
 	@ToString.Exclude
 	private Collection<Trip> trips = new ArrayList<>();
 	
 
-	public City(@NotNull @Size(min = 3, max = 30) String title,
-			@NotNull @Size(min = 3, max = 1000) @Pattern(regexp = "/[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš][*][0-1]+)?") String city) {
+	public City(@NotNull @Size(min = 3, max = 30) @Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+?") String title,
+			@NotNull @Size(min = 3, max = 1000) @Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš][*][0-9]+)?") String city) {
 		this.title = title;
 		this.city = city;
 	}

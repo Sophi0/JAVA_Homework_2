@@ -8,6 +8,6 @@ import lv.venta.models.Driver;
 
 public interface IDriverRepo extends CrudRepository<Driver, Long>{
 
-	ArrayList<Driver> findByDriverIdd(long id);
+	ArrayList<Driver> findByIdd(long id);
 
 }
