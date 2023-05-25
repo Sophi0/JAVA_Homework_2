@@ -6,4 +6,7 @@ import lv.venta.models.Trip;
 
 public interface ITripRepo extends CrudRepository<Trip, Long>{
 
+	Trip[] selectTripByCityTitle(String title);
+
+
 }
