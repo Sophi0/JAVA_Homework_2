@@ -45,14 +45,26 @@ public class TripServiceImpl implements ITripService{
 
 	@Override
 	public ArrayList<Trip> selectTripsByDriverId(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if(id > 0) {
+			ArrayList<Trip> filteredResults = trRepo.findByDriverId(id);
+			return filteredResults;
+		}
+		else {
+			throw new Exception("ID need to be positive");
+		}
 	}
 
 	@Override
 	public ArrayList<Trip> selectTripsToday(LocalDateTime dateTime) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Trip> tripsToday = new ArrayList<>();
+		//I created function allTrips to output list of trips
+		for(Trip trip : trRepo.allTrips()) {
+			//if trip date and time matches, it will be added
+			if(trip.getDateTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
+				tripsToday.add(trip);
+			}
+		}
+		return tripsToday;
 	}
 
 	@Override
