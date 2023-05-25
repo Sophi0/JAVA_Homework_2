@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
+import lv.venta.models.BusCategory;
 import lv.venta.models.Driver;
 import lv.venta.repos.IDriverRepo;
 import lv.venta.services.IDriverCRUDService;
@@ -50,15 +52,37 @@ public class DriverServiceImpl implements IDriverCRUDService{
 
 
 	@Override
-	public ArrayList<Driver> addnewDriver(Driver driver) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public void addnewDriver(String name, String surname, BusCategory bcategory) throws Exception {
+		if (drRepo.existsByNameAndSurnameAndBcategory(name, surname, bcategory)) {
+			throw new Exception("Driver already exists");
+		}
+		 else {
+			Driver newDriver = new Driver(name, surname, bcategory);
+			drRepo.save(newDriver); 
+		}
 	}
 
+
 	@Override
-	public ArrayList<Driver> updateDriverById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateDriverById(long id, String name, String surname, BusCategory bcategory) throws Exception {
+		if(id > 0) {
+			if(drRepo.existsById(id)) {
+				Driver temp = drRepo.findById(id).get();
+				temp.setName(name);
+				temp.setSurname(surname);
+				temp.setBcategory(bcategory);
+
+				drRepo.save(temp);
+			}
+			else {
+				throw new Exception("There is no product with this ID");
+			}
+		}
+		else {
+			throw new Exception("ID nees to be positive");
+		}	
 	}
+
+	
 
 }
