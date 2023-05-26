@@ -1,7 +1,7 @@
 <html xmlns:th="http://:www.thymeleaf.org">
 	<body>
 		<table>
-			<tr th:each="temp : ${drivers}">	
+			<tr th:each="temp : ${driver}">	
 				<td th:text="${temp.getIdd()}"></td>
 				<td th:text="${temp.getName()}"></td>
 				<td th:text="${temp.getSurname()}"></td>

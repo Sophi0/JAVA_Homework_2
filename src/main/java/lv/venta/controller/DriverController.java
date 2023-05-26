@@ -22,14 +22,14 @@ public class DriverController {
 	
 	@GetMapping(value = "/driver/showAll")	//localhost:8080/driver/showAll
 	public String getAllDriversFunc(Model model) {
-		model.addAttribute("drivers", driverCRUDService.retrieveAllDrivers());
+		model.addAttribute("driver", driverCRUDService.retrieveAllDrivers());
 		return "all-drivers-page";	//will show all-drivers-page.html
 	}
 	
 	@GetMapping(value = "/driver/showAll/{id}")	//localhost:8080/driver/showAll/2
 	public String getAllDriversByDriverIdFunc(@PathVariable(name = "idd") long idd, Model model) throws Exception{
 		try {
-			model.addAttribute("drivers", driverCRUDService.retrieveDriverById(idd));
+			model.addAttribute("driver", driverCRUDService.retrieveDriverById(idd));
 			return "all-drivers-page";	//will show all-drivers-page.html
 		}
 		catch (Exception e) {
@@ -53,7 +53,7 @@ public class DriverController {
 	
 	@GetMapping(value = "/driver/addNew")	//localhost:8080/driver/addNew
 	public String getAddNewDriverFunc(Model model) {
-		model.addAttribute("drivers", new Driver());
+		model.addAttribute("driver", new Driver());
 		return "add-driver-page";	//will call add-driver-page.html
 	}
 	
@@ -70,6 +70,35 @@ public class DriverController {
 		}
 		else {
 			return "add-driver-page";
+		}
+	}
+	
+	@GetMapping(value = "/driver/update/{id}")	//localhost:8080/driver/update/{id}
+	public String getUpdateDriverByIdfunc(@PathVariable("idd") long idd, Model model) {
+		try {
+			Driver driver = driverCRUDService.retrieveDriverById(idd);
+			model.addAttribute("driver", driver);
+			return "update-driver-page";	//will call update-driver-page.html
+		}
+		catch (Exception e) {
+			model.addAttribute("packetError", e.getMessage());
+			return "error-page";	//will call error-page.html
+		}
+	}
+	
+	@PostMapping(value = "/driver/update/{id}")
+	public String postUpdateDriverByIdFunc(@PathVariable("idd") long idd, @Valid Driver driver, BindingResult result) {
+		if(!result.hasErrors()) {
+			try {
+				driverCRUDService.updateDriverById(idd, driver.getName(), driver.getSurname(), driver.getBcategory());
+				return "redirect:/driver/showAll" + idd;
+			}
+			catch (Exception e) {
+				return "redirect:/error-page";
+			}
+		}
+		else {
+			return "update-driver-page";
 		}
 	}
 	
