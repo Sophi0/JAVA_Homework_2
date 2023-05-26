@@ -1,0 +1,12 @@
+<html xmlns:th="http://:www.thymeleaf.org">
+	<body>
+		<table>
+			<tr th:each="temp : ${drivers}">	
+				<td th:text="${temp.getIdd()}"></td>
+				<td th:text="${temp.getName()}"></td>
+				<td th:text="${temp.getSurname()}"></td>
+				<td th:text="${temp.getBcategory()}"></td>
+			</tr>
+		</table>
+	</body>
+</html>
