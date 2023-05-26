@@ -10,9 +10,12 @@ public interface ITripRepo extends CrudRepository<Trip, Long>{
 
 	Trip[] selectTripByCityTitle(String title);
 
-	ArrayList<Trip> findByDriverId(long id);
+	ArrayList<Trip> findByDriverId(long idd);
 
 	ArrayList<Trip> allTrips();
+
+	Trip findTripByTripId(long idt);
+
 
 
 }

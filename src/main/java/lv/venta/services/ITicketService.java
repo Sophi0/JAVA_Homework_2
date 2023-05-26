@@ -1,18 +1,22 @@
 package lv.venta.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import lv.venta.models.Cashier;
 import lv.venta.models.Ticket;
 
 public interface ITicketService {
 
-	ArrayList<Ticket> selectAllChildTickets(boolean isChild) throws Exception;
+	ArrayList<Ticket> selectAllChildTickets() throws Exception;
 	
-	ArrayList<Ticket> selectAllTicketsByTripId(long id) throws Exception;
+	ArrayList<Ticket> selectAllTicketsWherePriceIsLow(float inputPrice);
 	
-	ArrayList<Ticket> calculateIncomeOfTripBytripId(long id) throws Exception;
+	ArrayList<Ticket> selectAllTicketsByTripId(long idt) throws Exception;
 	
-	ArrayList<Ticket> calculateIncomeOfCashierByCashierId(long id) throws Exception;
+	float calculateIncomeOfTripByTripId(long idt) throws Exception;
 	
-	ArrayList<Ticket> insertNewTicketByTripId(long id) throws Exception;
+	float calculateIncomeOfCashierByCashierId(long idc) throws Exception;
+	
+	public abstract void insertNewTicketByTripId(long idt, LocalDateTime dateTime, float price, boolean isChild, Cashier cashier) throws Exception;
 }

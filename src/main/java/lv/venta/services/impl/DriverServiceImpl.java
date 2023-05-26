@@ -3,13 +3,14 @@ package lv.venta.services.impl;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import lv.venta.models.BusCategory;
 import lv.venta.models.Driver;
 import lv.venta.repos.IDriverRepo;
 import lv.venta.services.IDriverCRUDService;
 
+@Service
 public class DriverServiceImpl implements IDriverCRUDService{
 	
 	@Autowired
@@ -21,9 +22,9 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	}
 
 	@Override
-	public Driver retrieveDriverById(long id) throws Exception {
-		if(id > 0) {
-			return drRepo.findByIdd(id);
+	public Driver retrieveDriverById(long idd) throws Exception {
+		if(idd > 0) {
+			return drRepo.findByIdd(idd);
 		}
 		else {
 			throw new Exception("ID need to be positive");
@@ -31,9 +32,9 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	}
 
 	@Override
-	public void deleteDriverById(long id) throws Exception {
-		if(id > 0) {
-			drRepo.deleteDriverById(id);
+	public void deleteDriverById(long idd) throws Exception {
+		if(idd > 0) {
+			drRepo.deleteDriverById(idd);
 		}
 		else {
 			throw new Exception("ID need to be positive");
@@ -54,10 +55,10 @@ public class DriverServiceImpl implements IDriverCRUDService{
 
 
 	@Override
-	public void updateDriverById(long id, String name, String surname, BusCategory bcategory) throws Exception {
-		if(id > 0) {
-			if(drRepo.existsById(id)) {
-				Driver temp = drRepo.findById(id).get();
+	public void updateDriverById(long idd, String name, String surname, BusCategory bcategory) throws Exception {
+		if(idd > 0) {
+			if(drRepo.existsById(idd)) {
+				Driver temp = drRepo.findById(idd).get();
 				temp.setName(name);
 				temp.setSurname(surname);
 				temp.setBcategory(bcategory);
@@ -69,7 +70,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 			}
 		}
 		else {
-			throw new Exception("ID nees to be positive");
+			throw new Exception("ID needs to be positive");
 		}	
 	}
 

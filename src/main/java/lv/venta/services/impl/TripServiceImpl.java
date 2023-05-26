@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import lv.venta.models.City;
 import lv.venta.models.Trip;
@@ -12,6 +13,7 @@ import lv.venta.repos.IDriverRepo;
 import lv.venta.repos.ITripRepo;
 import lv.venta.services.ITripService;
 
+@Service
 public class TripServiceImpl implements ITripService{
 	
 	@Autowired 
@@ -48,11 +50,11 @@ public class TripServiceImpl implements ITripService{
 	}
 
 	@Override
-	public ArrayList<Trip> selectTripsByDriverId(long id) throws Exception {
-		if(id > 0) {
-			ArrayList<Trip> filteredResults = trRepo.findByDriverId(id);
+	public ArrayList<Trip> selectTripsByDriverId(long idd) throws Exception {
+		if(idd > 0) {
+			ArrayList<Trip> filteredResults = trRepo.findByDriverId(idd);
 			for(Trip temp : trRepo.findAll()) {
-				if(Objects.equals(temp.getDriver().getIdd(), id)) {
+				if(Objects.equals(temp.getDriver().getIdd(), idd)) {
 					filteredResults.add(temp);
 				}
 			}
@@ -77,13 +79,13 @@ public class TripServiceImpl implements ITripService{
 	}
 
 	@Override
-	public void changeTripDriverByDriverId(long id) throws Exception {
-		if(id > 0) {
+	public void changeTripDriverByDriverId(long idd, long idt) throws Exception {
+		if(idd > 0) {
 			for(Trip temp : trRepo.findAll()) {
 				//if the id of the current trip object 'temp'is equal to the provided id
-				if(Objects.equals(temp.getIdt(), id)) {
+				if(Objects.equals(temp.getIdt(), idt)) {
 					//so we set the driver of the current trip object 'temp' to the driver object 
-					temp.setDriver(drRepo.findByIdd(id));
+					temp.setDriver(drRepo.findByIdd(idd));
 				}
 			}
 		}
