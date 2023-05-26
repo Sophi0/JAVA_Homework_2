@@ -34,7 +34,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	@Override
 	public void deleteDriverById(long idd) throws Exception {
 		if(idd > 0) {
-			drRepo.deleteDriverById(idd);
+			drRepo.deleteDriverByIdd(idd);
 		}
 		else {
 			throw new Exception("ID need to be positive");

@@ -14,6 +14,6 @@ public interface IDriverRepo extends CrudRepository<Driver, Long>{
 
 	Driver findByNameAndSurnameAndBcategory(String name, String surname, BusCategory bcategory);
 
-	void deleteDriverById(long idd);
+	void deleteDriverByIdd(long idd);
 
 }

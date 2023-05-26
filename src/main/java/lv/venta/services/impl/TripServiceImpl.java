@@ -22,13 +22,13 @@ public class TripServiceImpl implements ITripService{
     private IDriverRepo drRepo;
 
 	@Override
-	public ArrayList<Trip> selectTripByCityTitle(String title) throws Exception {
-		if(title == null || title.isEmpty()) {
+	public ArrayList<Trip> selectTripByCityTitle(String inputTitle) throws Exception {
+		if(inputTitle.length() == 0 || inputTitle.isEmpty()) {
 				throw new Exception ("Title does not exist");
 		}
 		ArrayList<Trip> matchingTrips = new ArrayList<>();
-		for(Trip temp : trRepo.selectTripByCityTitle(title)) {
-			if(hasCityWithTitle(temp, title)) {
+		for(Trip temp : trRepo.selectTripByCityTitle(inputTitle)) {
+			if(hasCityWithTitle(temp, inputTitle)) {
 				//if there is matching cities, it adds trip to the list
 				matchingTrips.add(temp);
 			}
@@ -52,7 +52,7 @@ public class TripServiceImpl implements ITripService{
 	@Override
 	public ArrayList<Trip> selectTripsByDriverId(long idd) throws Exception {
 		if(idd > 0) {
-			ArrayList<Trip> filteredResults = trRepo.findByDriverId(idd);
+			ArrayList<Trip> filteredResults = trRepo.findAllTripByDriverId(idd);
 			for(Trip temp : trRepo.findAll()) {
 				if(Objects.equals(temp.getDriver().getIdd(), idd)) {
 					filteredResults.add(temp);
@@ -69,7 +69,7 @@ public class TripServiceImpl implements ITripService{
 	public ArrayList<Trip> selectTripsToday(LocalDateTime dateTime) throws Exception {
 		ArrayList<Trip> tripsToday = new ArrayList<>();
 		//I created function allTrips to output list of trips
-		for(Trip trip : trRepo.allTrips()) {
+		for(Trip trip : trRepo.findAll()) {
 			//if trip date and time matches, it will be added
 			if(trip.getDateTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
 				tripsToday.add(trip);
