@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+		<form action="#" th:action="@{/driver/addNew}" th:object="${drivers}" method="post">
+			<table>
+				<tr>
+					<td>Driver's name':</td>
+					<td><input type="text" th:field="*{name}" /></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+				</tr>
+				
+				<tr>
+					<td>Driver's surname':</td>
+					<td><input type="text" th:field="*{surname}" /></td>
+					<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></td>
+				</tr>
+				
+				<tr>
+					<td>Driver's category':</td>
+					<td><input type="text" th:field="*{bcategory}" /></td>
+					<td th:if="${#fields.hasErrors('bcategory')}" th:errors="*{bcategory}"></td>
+				</tr>
+				
+				<tr>
+					<td><button type="submit"> Add driver </button></td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
