@@ -13,6 +13,6 @@ public interface ITripService {
 	
 	ArrayList<Trip> selectTripsToday(LocalDateTime dateTime) throws Exception;
 	
-	ArrayList<Trip> changeTripDriverByDriverId(long id) throws Exception;
+	public abstract void changeTripDriverByDriverId(long id) throws Exception;
 	
 }

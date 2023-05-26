@@ -2,11 +2,13 @@ package lv.venta.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lv.venta.models.City;
 import lv.venta.models.Trip;
+import lv.venta.repos.IDriverRepo;
 import lv.venta.repos.ITripRepo;
 import lv.venta.services.ITripService;
 
@@ -14,6 +16,8 @@ public class TripServiceImpl implements ITripService{
 	
 	@Autowired 
 	private ITripRepo trRepo;
+	@Autowired
+    private IDriverRepo drRepo;
 
 	@Override
 	public ArrayList<Trip> selectTripByCityTitle(String title) throws Exception {
@@ -47,6 +51,11 @@ public class TripServiceImpl implements ITripService{
 	public ArrayList<Trip> selectTripsByDriverId(long id) throws Exception {
 		if(id > 0) {
 			ArrayList<Trip> filteredResults = trRepo.findByDriverId(id);
+			for(Trip temp : trRepo.findAll()) {
+				if(Objects.equals(temp.getDriver().getIdd(), id)) {
+					filteredResults.add(temp);
+				}
+			}
 			return filteredResults;
 		}
 		else {
@@ -68,9 +77,19 @@ public class TripServiceImpl implements ITripService{
 	}
 
 	@Override
-	public ArrayList<Trip> changeTripDriverByDriverId(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public void changeTripDriverByDriverId(long id) throws Exception {
+		if(id > 0) {
+			for(Trip temp : trRepo.findAll()) {
+				//if the id of the current trip object 'temp'is equal to the provided id
+				if(Objects.equals(temp.getIdt(), id)) {
+					//so we set the driver of the current trip object 'temp' to the driver object 
+					temp.setDriver(drRepo.findByIdd(id));
+				}
+			}
+		}
+		else {
+			throw new Exception ("ID is not correct");
+		}
 	}
 
 }

@@ -9,9 +9,9 @@ public interface IDriverCRUDService {
 
 	ArrayList<Driver> retrieveAllDrivers();
 	
-	ArrayList<Driver> retrieveDriverById(long id) throws Exception;
+	Driver retrieveDriverById(long id) throws Exception;
 	
-	ArrayList<Driver> deleteDriverById(long id) throws Exception;
+	public abstract void deleteDriverById(long id) throws Exception;
 	
 	public abstract void addnewDriver(String name, String surname, BusCategory bcategory) throws Exception;
 	
