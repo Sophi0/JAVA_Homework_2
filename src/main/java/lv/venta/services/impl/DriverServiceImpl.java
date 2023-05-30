@@ -24,7 +24,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	@Override
 	public Driver retrieveDriverById(long idd) throws Exception {
 		if(idd > 0) {
-			return drRepo.findByIdd(idd);
+			return drRepo.findById(idd).get();
 		}
 		else {
 			throw new Exception("ID need to be positive");
@@ -34,7 +34,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	@Override
 	public void deleteDriverById(long idd) throws Exception {
 		if(idd > 0) {
-			drRepo.deleteDriverByIdd(idd);
+			drRepo.deleteById(idd);
 		}
 		else {
 			throw new Exception("ID need to be positive");

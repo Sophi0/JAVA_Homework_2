@@ -9,13 +9,13 @@ import lv.venta.models.Trip;
 
 public interface ITripRepo extends CrudRepository<Trip, Long>{
 
-	ArrayList<Trip> selectTripByCityTitle(String inputTitle);
+	ArrayList<Trip> findByCitiesTitle(String inputTitle);
 
 	ArrayList<Ticket> findTicketsByIdt(long idt);
 
-	ArrayList<Trip> findAllTripByDriverId(long idd);
+	ArrayList<Trip> findByDriverIdd(long idd);
 
-	Trip findTripByTripIdt(long idt);
+	//Trip findTripByTripIdt(long idt);
 
 
 

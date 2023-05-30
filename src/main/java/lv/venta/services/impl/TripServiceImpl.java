@@ -27,7 +27,7 @@ public class TripServiceImpl implements ITripService{
 				throw new Exception ("Title does not exist");
 		}
 		ArrayList<Trip> matchingTrips = new ArrayList<>();
-		for(Trip temp : trRepo.selectTripByCityTitle(inputTitle)) {
+		for(Trip temp : trRepo.findByCitiesTitle(inputTitle)) {
 			if(hasCityWithTitle(temp, inputTitle)) {
 				//if there is matching cities, it adds trip to the list
 				matchingTrips.add(temp);
@@ -52,7 +52,7 @@ public class TripServiceImpl implements ITripService{
 	@Override
 	public ArrayList<Trip> selectTripsByDriverId(long idd) throws Exception {
 		if(idd > 0) {
-			ArrayList<Trip> filteredResults = trRepo.findAllTripByDriverId(idd);
+			ArrayList<Trip> filteredResults = trRepo.findByDriverIdd(idd);
 			for(Trip temp : trRepo.findAll()) {
 				if(Objects.equals(temp.getDriver().getIdd(), idd)) {
 					filteredResults.add(temp);
@@ -85,7 +85,7 @@ public class TripServiceImpl implements ITripService{
 				//if the id of the current trip object 'temp'is equal to the provided id
 				if(Objects.equals(temp.getIdt(), idt)) {
 					//so we set the driver of the current trip object 'temp' to the driver object 
-					temp.setDriver(drRepo.findByIdd(idd));
+					temp.setDriver(drRepo.findById(idd).get());
 				}
 			}
 		}

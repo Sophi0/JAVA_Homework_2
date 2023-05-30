@@ -70,7 +70,7 @@ public class TicketServiceImpl implements ITicketService{
 	public float calculateIncomeOfCashierByCashierId(long idc) throws Exception {
 		if(idc > 0) {
 			float totalIncome = 0;
-			for(Ticket temp : chRepo.findCashierById(idc).getTickets()) {
+			for(Ticket temp : chRepo.findById(idc).get().getTickets()) {
 				totalIncome += temp.getPrice();
 			}
 			return totalIncome;
@@ -83,7 +83,7 @@ public class TicketServiceImpl implements ITicketService{
 	@Override
 	public void insertNewTicketByTripId(long idt, LocalDateTime dateTime, float price, boolean isChild, Cashier cashier) throws Exception {
 		if(idt > 0) {
-			Trip trip = trRepo.findTripByTripIdt(idt);
+			Trip trip = trRepo.findById(idt).get();
 			Ticket ticket = new Ticket();
 			ticket.setTrips(trip);
 			ticket.setDateTime(dateTime);
