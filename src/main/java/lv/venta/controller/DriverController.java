@@ -15,8 +15,6 @@ import lv.venta.services.IDriverCRUDService;
 @Controller
 public class DriverController {
 	
-	//CHECK IF I NEED TO WRITE IDD OR JUST ID
-
 	@Autowired
 	private IDriverCRUDService driverCRUDService;
 	
@@ -27,9 +25,9 @@ public class DriverController {
 	}
 	
 	@GetMapping(value = "/driver/showAll/{id}")	//localhost:8080/driver/showAll/2
-	public String getAllDriversByDriverIdFunc(@PathVariable(name = "idd") long idd, Model model) throws Exception{
+	public String getAllDriversByDriverIdFunc(@PathVariable(name = "id") long id, Model model) throws Exception{
 		try {
-			model.addAttribute("driver", driverCRUDService.retrieveDriverById(idd));
+			model.addAttribute("driver", driverCRUDService.retrieveDriverById(id));
 			return "all-drivers-page";	//will show all-drivers-page.html
 		}
 		catch (Exception e) {
@@ -39,7 +37,7 @@ public class DriverController {
 	}
 	
 	@GetMapping(value = "/driver/remove/{id}")	//localhost:8080/driver/remove/2
-	public String getRemoveDriverFunc(@PathVariable("idd") long idd, Model model) {
+	public String getRemoveDriverFunc(@PathVariable("id") long idd, Model model) {
 		try {
 			driverCRUDService.deleteDriverById(idd);
 			model.addAttribute("driver", driverCRUDService.retrieveAllDrivers());
@@ -57,11 +55,11 @@ public class DriverController {
 		return "add-driver-page";	//will call add-driver-page.html
 	}
 	
-	@PostMapping(value = "/driver/addNew")
+	@PostMapping(value = "/driver/addNew")	//localhost:8080/driver/addNew
 	public String postAddNewDriverFunc(@Valid Driver driver, BindingResult result) {
 		if(!result.hasErrors()) {
 			try {
-				driverCRUDService.addnewDriver(driver.getName(), driver.getSurname(), driver.getBcategory());
+				driverCRUDService.addnewDriver(driver.getName(), driver.getSurname(), driver.getCategories());
 				return "redirect:/driver/showAll";
 			}
 			catch (Exception e) {
@@ -74,9 +72,9 @@ public class DriverController {
 	}
 	
 	@GetMapping(value = "/driver/update/{id}")	//localhost:8080/driver/update/{id}
-	public String getUpdateDriverByIdfunc(@PathVariable("idd") long idd, Model model) {
+	public String getUpdateDriverByIdfunc(@PathVariable("id") long id, Model model) {
 		try {
-			Driver driver = driverCRUDService.retrieveDriverById(idd);
+			Driver driver = driverCRUDService.retrieveDriverById(id);
 			model.addAttribute("driver", driver);
 			return "update-driver-page";	//will call update-driver-page.html
 		}
@@ -87,11 +85,11 @@ public class DriverController {
 	}
 	
 	@PostMapping(value = "/driver/update/{id}")
-	public String postUpdateDriverByIdFunc(@PathVariable("idd") long idd, @Valid Driver driver, BindingResult result) {
+	public String postUpdateDriverByIdFunc(@PathVariable("id") long id, @Valid Driver driver, BindingResult result) {
 		if(!result.hasErrors()) {
 			try {
-				driverCRUDService.updateDriverById(idd, driver.getName(), driver.getSurname(), driver.getBcategory());
-				return "redirect:/driver/showAll" + idd;
+				driverCRUDService.updateDriverById(id, driver.getName(), driver.getSurname(), driver.getCategories());
+				return "redirect:/driver/showAll/" + id;
 			}
 			catch (Exception e) {
 				return "redirect:/error-page";

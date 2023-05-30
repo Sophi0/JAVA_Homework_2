@@ -1,0 +1,41 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date/Time</th>
+                <th>Duration</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>City Title</th>
+                <th>City Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="temp : ${trip}">
+                <td th:text="${temp.getIdt()}"></td>
+                <td th:text="${temp.getDateTime()}"></td>
+                <td th:text="${temp.getDurationInMinutes()}"></td>
+                <td th:text="${temp.getDriver().getName()}"></td>
+                <td th:text="${temp.getDriver().getSurname()}"></td>
+                <td>
+                    <ul>
+                        <li th:each="city : ${temp.getCities()}">
+                            <span th:text="${city.getTitle()}"></span>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li th:each="city : ${temp.getCities()}">
+                            <span th:text="${city.getCity()}"></span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -43,25 +43,24 @@ public class DriverServiceImpl implements IDriverCRUDService{
 
 
 	@Override
-	public void addnewDriver(String name, String surname, BusCategory bcategory) throws Exception {
-		if (drRepo.existsByNameAndSurnameAndBcategory(name, surname, bcategory)) {
-			throw new Exception("Driver already exists");
+	public void addnewDriver(String name, String surname, BusCategory categories) throws Exception {
+		if (!(drRepo.findByName(name) && drRepo.findBySurname(surname) && drRepo.findByCategories(categories))) {
+			drRepo.save(new Driver(name, surname, categories));
 		}
 		 else {
-			Driver newDriver = new Driver(name, surname, bcategory);
-			drRepo.save(newDriver); 
+			 throw new Exception("Driver already exists");
 		}
 	}
 
 
 	@Override
-	public void updateDriverById(long idd, String name, String surname, BusCategory bcategory) throws Exception {
+	public void updateDriverById(long idd, String name, String surname, BusCategory categories) throws Exception {
 		if(idd > 0) {
 			if(drRepo.existsById(idd)) {
 				Driver temp = drRepo.findById(idd).get();
 				temp.setName(name);
 				temp.setSurname(surname);
-				temp.setBcategory(bcategory);
+				temp.setCategories(categories);
 
 				drRepo.save(temp);
 			}

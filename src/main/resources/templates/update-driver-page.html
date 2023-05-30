@@ -3,21 +3,21 @@
 		<form action="#" th:action="@{/driver/update/__${id}__}" th:object="${driver}" method="post">
 			<table>
 				<tr>
-					<td>Driver's name':</td>
+					<td>Name:</td>
 					<td><input type="text" th:field="*{name}" /></td>
 					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
 				</tr>
 				
 				<tr>
-					<td>Driver's surname':</td>
+					<td>Surname:</td>
 					<td><input type="text" th:field="*{surname}" /></td>
 					<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></td>
 				</tr>
 				
 				<tr>
-					<td>Driver's category':</td>
-					<td><input type="text" th:field="*{category}" /></td>
-					<td th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></td>
+					<td>Category(schoolbus, minibus, large bus):</td>
+					<td><input type="text" th:field="*{categories}" /></td>
+					<td th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}"></td>
 				</tr>
 				<tr>
 					<td><button type="submit"> Edit driver </button></td>

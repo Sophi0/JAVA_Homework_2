@@ -1,8 +1,6 @@
 package lv.venta.models;
 
 import java.util.Collection;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +34,7 @@ public class Driver extends Person{
 	
 	@Column(name = "Categories")
 	@NotNull
-	private BusCategory bcategory;
+	private BusCategory categories;
 	
 	@OneToMany(mappedBy = "driver")
 	@ToString.Exclude
@@ -46,9 +44,9 @@ public class Driver extends Person{
 	public Driver(
 			@NotNull @Size(min = 3, max = 20) @Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš]+)?", message = "Only latin letters") String name,
 			@NotNull @Size(min = 3, max = 30) @Pattern(regexp = "[A-ZĒŪĪĀĻŅČŠŽ]{1}[a-zēīāūļžņš]+([ ][A-ZĒŪĪĀĻŅŠČŽ]{1}[a-zēīāūļžņš]+)?", message = "Only latin letters") String surname,
-			@NotNull BusCategory bcategory) {
+			@NotNull BusCategory categories) {
 		super(name, surname);
-		this.bcategory = bcategory;
+		this.categories = categories;
 	}
 	
 	
