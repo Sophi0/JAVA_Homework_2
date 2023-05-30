@@ -4,17 +4,18 @@ import java.util.ArrayList;
 
 import org.springframework.data.repository.CrudRepository;
 
+import lv.venta.models.Ticket;
 import lv.venta.models.Trip;
 
 public interface ITripRepo extends CrudRepository<Trip, Long>{
 
-	Trip[] selectTripByCityTitle(String title);
+	ArrayList<Trip> findByCitiesTitle(String inputTitle);
 
-	ArrayList<Trip> findByDriverId(long idd);
+	ArrayList<Ticket> findTicketsByIdt(long idt);
 
-	ArrayList<Trip> allTrips();
+	ArrayList<Trip> findByDriverIdd(long idd);
 
-	Trip findTripByTripId(long idt);
+	//Trip findTripByTripIdt(long idt);
 
 
 

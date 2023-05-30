@@ -6,4 +6,6 @@ import lv.venta.models.Cashier;
 
 public interface ICashierRepo extends CrudRepository<Cashier, Long>{
 
+	//Cashier findCashierById(long idc);
+
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import lv.venta.models.Cashier;
 import lv.venta.models.Ticket;
 import lv.venta.models.Trip;
+import lv.venta.repos.ICashierRepo;
 import lv.venta.repos.ITicketRepo;
 import lv.venta.repos.ITripRepo;
 import lv.venta.services.ITicketService;
@@ -20,6 +21,8 @@ public class TicketServiceImpl implements ITicketService{
     private ITicketRepo tkRepo;
     @Autowired
     private ITripRepo trRepo;
+    @Autowired 
+    private ICashierRepo chRepo;
     
 	@Override
 	public ArrayList<Ticket> selectAllChildTickets() throws Exception {
@@ -46,20 +49,14 @@ public class TicketServiceImpl implements ITicketService{
 	
 	@Override
 	public ArrayList<Ticket> selectAllTicketsByTripId(long idt) throws Exception {
-		if(idt > 0) {
-			ArrayList<Ticket> filteredResults = tkRepo.findByTripId(idt);
-			return filteredResults;
-			}
-		else {
-			throw new Exception ("ID need to be positive");
-		}
+			return trRepo.findTicketsByIdt(idt);
 	}
 	
 	@Override
 	public float calculateIncomeOfTripByTripId(long idt) throws Exception {
 		if(idt > 0) {
 			float totalIncome = 0;
-			for(Ticket temp : tkRepo.findByTripId(idt)) {
+			for(Ticket temp : selectAllTicketsByTripId(idt)) {
 				totalIncome += temp.getPrice();
 			}
 			return totalIncome;
@@ -73,7 +70,7 @@ public class TicketServiceImpl implements ITicketService{
 	public float calculateIncomeOfCashierByCashierId(long idc) throws Exception {
 		if(idc > 0) {
 			float totalIncome = 0;
-			for(Ticket temp : tkRepo.findByTripId(idc)) {
+			for(Ticket temp : chRepo.findById(idc).get().getTickets()) {
 				totalIncome += temp.getPrice();
 			}
 			return totalIncome;
@@ -86,7 +83,7 @@ public class TicketServiceImpl implements ITicketService{
 	@Override
 	public void insertNewTicketByTripId(long idt, LocalDateTime dateTime, float price, boolean isChild, Cashier cashier) throws Exception {
 		if(idt > 0) {
-			Trip trip = trRepo.findTripByTripId(idt);
+			Trip trip = trRepo.findById(idt).get();
 			Ticket ticket = new Ticket();
 			ticket.setTrips(trip);
 			ticket.setDateTime(dateTime);

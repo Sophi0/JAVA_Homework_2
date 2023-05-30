@@ -8,12 +8,12 @@ import lv.venta.models.Driver;
 
 public interface IDriverRepo extends CrudRepository<Driver, Long>{
 
-	Driver findByIdd(long idd);
+	//Driver findBy(long idd);
 
 	boolean existsByNameAndSurnameAndBcategory(String name, String surname, BusCategory bcategory);
 
 	Driver findByNameAndSurnameAndBcategory(String name, String surname, BusCategory bcategory);
 
-	void deleteDriverById(long idd);
+	//void deleteDriverByIdd(long idd);
 
 }

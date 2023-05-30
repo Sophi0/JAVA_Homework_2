@@ -7,7 +7,7 @@ import lv.venta.models.Trip;
 
 public interface ITripService {
 
-	ArrayList<Trip> selectTripByCityTitle(String title) throws Exception;
+	ArrayList<Trip> selectTripByCityTitle(String inputTitle) throws Exception;
 	
 	ArrayList<Trip> selectTripsByDriverId(long idd) throws Exception;
 	
