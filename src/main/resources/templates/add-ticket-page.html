@@ -1,0 +1,12 @@
+<html xmlns:th="http://:www.thymeleaf.org">
+	<body>
+		<table>
+			<tr th:each="temp : ${ticket}">	
+				<td th:text="${temp.getIdtk()}"></td>
+				<td th:text="${temp.getPrice()}"></td>
+				<td th:text="${temp.getIsChild()}"></td>
+				<td th:text="${temp.getCashiers()}"></td>
+			</tr>
+		</table>
+	</body>
+</html>

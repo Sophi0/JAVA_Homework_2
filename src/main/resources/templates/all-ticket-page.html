@@ -1,0 +1,22 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<table>
+    <tr>
+        <th>Ticket ID</th>
+        <th>Date/Time</th>
+        <th>Price</th>
+        <th>isChild</th>
+        <th>Cashier name/surname</th>
+        <th>Trip ID</th>
+    </tr>
+    <tr th:each="temp : ${ticket}">
+        <td th:text="${temp.getIdtk()}"> </td>
+        <td th:text="${temp.getDateTime()}"> </td>
+        <td th:text="${temp.getPrice()}"> </td>
+        <td th:text="${temp.isChild()}"> </td>
+        <td th:text="${temp.getCashiers().getName()} + ' ' + ${temp.getCashiers().getSurname()}"> </td>
+        <td th:text="${temp.getTrips().getIdt()}"> </td>
+    </tr>
+</table>
+</body>
+</html>

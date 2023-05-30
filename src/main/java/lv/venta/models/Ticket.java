@@ -46,6 +46,10 @@ public class Ticket {
 	private float price;
 	
 	@Column(name = "isChild")
+	/*
+	@Setter(value=AccessLevel.NONE)
+    @Getter(value=AccessLevel.NONE)
+    */
 	private boolean isChild;
 	
 	@ManyToOne

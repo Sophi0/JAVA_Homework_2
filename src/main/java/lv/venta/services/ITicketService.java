@@ -8,7 +8,7 @@ import lv.venta.models.Ticket;
 
 public interface ITicketService {
 
-	ArrayList<Ticket> selectAllChildTickets() throws Exception;
+	ArrayList<Ticket> selectAllChildTickets();
 	
 	ArrayList<Ticket> selectAllTicketsWherePriceIsLow(float inputPrice);
 	
@@ -18,5 +18,5 @@ public interface ITicketService {
 	
 	float calculateIncomeOfCashierByCashierId(long idc) throws Exception;
 	
-	public abstract void insertNewTicketByTripId(long idt, LocalDateTime dateTime, float price, boolean isChild, Cashier cashier) throws Exception;
+	public abstract void insertNewTicketByTripId(long idt, float price, boolean isChild, Cashier cashier) throws Exception;
 }

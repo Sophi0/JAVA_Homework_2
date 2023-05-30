@@ -25,7 +25,7 @@ public class TicketServiceImpl implements ITicketService{
     private ICashierRepo chRepo;
     
 	@Override
-	public ArrayList<Ticket> selectAllChildTickets() throws Exception {
+	public ArrayList<Ticket> selectAllChildTickets() {
 			ArrayList<Ticket> chTickets = new ArrayList<>();
 			for(Ticket temp : tkRepo.findAll()) {
 				if(temp.isChild()) {
@@ -81,12 +81,11 @@ public class TicketServiceImpl implements ITicketService{
 	}
 	
 	@Override
-	public void insertNewTicketByTripId(long idt, LocalDateTime dateTime, float price, boolean isChild, Cashier cashier) throws Exception {
+	public void insertNewTicketByTripId(long idt, float price, boolean isChild, Cashier cashier) throws Exception {
 		if(idt > 0) {
 			Trip trip = trRepo.findById(idt).get();
 			Ticket ticket = new Ticket();
 			ticket.setTrips(trip);
-			ticket.setDateTime(dateTime);
 			ticket.setPrice(price);
 			ticket.setChild(isChild);
 			ticket.setCashiers(cashier);
