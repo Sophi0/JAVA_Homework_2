@@ -9,9 +9,9 @@ public interface ITripService {
 
 	ArrayList<Trip> selectTripByCityTitle(String inputTitle) throws Exception;
 	
-	ArrayList<Trip> selectTripsByDriverId(long idd) throws Exception;
+	ArrayList<Trip> selectTripsByDriverIdd(long idd) throws Exception;
 	
-	ArrayList<Trip> selectTripsToday(LocalDateTime dateTime) throws Exception;
+	ArrayList<Trip> selectTripsToday() throws Exception;
 	
 	public abstract void changeTripDriverByDriverId(long idd, long idt) throws Exception;
 	

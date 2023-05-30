@@ -1,5 +1,6 @@
 package lv.venta.services.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -50,15 +51,9 @@ public class TripServiceImpl implements ITripService{
 	}
 
 	@Override
-	public ArrayList<Trip> selectTripsByDriverId(long idd) throws Exception {
+	public ArrayList<Trip> selectTripsByDriverIdd(long idd) throws Exception {
 		if(idd > 0) {
-			ArrayList<Trip> filteredResults = trRepo.findByDriverIdd(idd);
-			for(Trip temp : trRepo.findAll()) {
-				if(Objects.equals(temp.getDriver().getIdd(), idd)) {
-					filteredResults.add(temp);
-				}
-			}
-			return filteredResults;
+			return trRepo.findAllTripsByDriverIdd(idd);
 		}
 		else {
 			throw new Exception("ID need to be positive");
@@ -66,12 +61,13 @@ public class TripServiceImpl implements ITripService{
 	}
 
 	@Override
-	public ArrayList<Trip> selectTripsToday(LocalDateTime dateTime) throws Exception {
+	public ArrayList<Trip> selectTripsToday() throws Exception {
 		ArrayList<Trip> tripsToday = new ArrayList<>();
+		LocalDate dayToday = LocalDate.now();
 		//I created function allTrips to output list of trips
 		for(Trip trip : trRepo.findAll()) {
 			//if trip date and time matches, it will be added
-			if(trip.getDateTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
+			if(trip.getDateTime().toLocalDate().isEqual(dayToday)) {
 				tripsToday.add(trip);
 			}
 		}

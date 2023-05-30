@@ -55,9 +55,11 @@ public class JavaHomework2Application {
 				Trip tr1 = new Trip(LocalDateTime.of(2023, 5, 16, 12, 10), 3f);
 				Trip tr2 = new Trip(LocalDateTime.of(2023, 5, 16, 13, 55), 2.5f);
 				Trip tr3 = new Trip(LocalDateTime.of(2023, 5, 16, 19, 00), 5f, dr1, new ArrayList<City>(List.of(c1)));
+				Trip tr4 = new Trip(LocalDateTime.now(), 2.8f);
 				trRepo.save(tr1);
 				trRepo.save(tr2);
 				trRepo.save(tr3);
+				trRepo.save(tr4);
 				
 				tr1.addCity(c1);
 				trRepo.save(tr1);

@@ -13,7 +13,9 @@ public interface ITripRepo extends CrudRepository<Trip, Long>{
 
 	ArrayList<Ticket> findTicketsByIdt(long idt);
 
-	ArrayList<Trip> findByDriverIdd(long idd);
+	ArrayList<Trip> findAllTripsByDriverIdd(long idd);
+
+	//ArrayList<Trip> findByDriverIdd(long idd);
 
 	//Trip findTripByTripIdt(long idt);
 
