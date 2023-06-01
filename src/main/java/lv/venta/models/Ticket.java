@@ -45,12 +45,12 @@ public class Ticket {
 	@Max(1000)
 	private float price;
 	
-	@Column(name = "isChild")
-	/*
-	@Setter(value=AccessLevel.NONE)
-    @Getter(value=AccessLevel.NONE)
-    */
-	private boolean isChild;
+	@Column(name = "child")
+	@Setter(value = AccessLevel.NONE)	
+	@Getter(value = AccessLevel.NONE)
+	private boolean child;
+	
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "IDt")
@@ -60,20 +60,28 @@ public class Ticket {
 	@JoinColumn(name = "IDc")
 	private Cashier cashiers;
 	
-	public Ticket(@NotNull LocalDateTime dateTime, @Min(0) @Max(1000) float price, boolean isChild) {
+	public Ticket(@NotNull LocalDateTime dateTime, @Min(0) @Max(1000) float price, boolean child) {
 		this.dateTime = dateTime;
 		this.price = price;
-		this.isChild = isChild;
+		this.child = child;
 	}
 
-	public Ticket(@NotNull LocalDateTime dateTime, @Min(0) @Max(1000) float price, boolean isChild, Trip trips,
+	public Ticket(@NotNull LocalDateTime dateTime, @Min(0) @Max(1000) float price, boolean child, Trip trips,
 			Cashier cashiers) {
 		super();
 		this.dateTime = dateTime;
 		this.price = price;
-		this.isChild = isChild;
+		this.child = child;
 		this.trips = trips;
 		this.cashiers = cashiers;
+	}
+
+	public boolean getChild() {
+		return child;
+	}
+
+	public void setChild(boolean child) {
+		this.child = child;
 	}
 	
 

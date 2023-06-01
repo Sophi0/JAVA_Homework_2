@@ -1,12 +1,30 @@
-<html xmlns:th="http://:www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org">
 	<body>
-		<table>
-			<tr th:each="temp : ${ticket}">	
-				<td th:text="${temp.getIdtk()}"></td>
-				<td th:text="${temp.getPrice()}"></td>
-				<td th:text="${temp.getIsChild()}"></td>
-				<td th:text="${temp.getCashiers()}"></td>
-			</tr>
-		</table>
+		<form action="#" th:action="@{/ticket/addNew}" th:object="${ticket}" method="post">
+			<table>
+				<tr>
+					<td>Price:</td>
+					<td><input type="text" th:field="*{price}" /></td>
+					<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></td>
+				</tr>
+				
+				<tr>
+					<td>isChild:</td>
+					<td><input type="text" th:field="*{child}" /></td>
+					<td th:if="${#fields.hasErrors('child')}" th:errors="*{child}"></td>
+				</tr>
+				
+				<tr>
+					<td>Cashier:</td>
+					<td><input type="text" th:field="*{cashier.idc}" th:value="${cashier.idc}" /></td>
+					<td th:if="${#fields.hasErrors('cashier.idc')}" th:errors="*{cashier.idc}"></td>
+				</tr>
+				
+				<tr>
+					<td><button type="submit"> Add ticket </button></td>
+				</tr>
+			</table>
+		</form>
 	</body>
 </html>

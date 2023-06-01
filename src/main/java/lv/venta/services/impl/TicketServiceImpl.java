@@ -28,7 +28,7 @@ public class TicketServiceImpl implements ITicketService{
 	public ArrayList<Ticket> selectAllChildTickets() {
 			ArrayList<Ticket> chTickets = new ArrayList<>();
 			for(Ticket temp : tkRepo.findAll()) {
-				if(temp.isChild()) {
+				if(temp.getChild()) {
 					chTickets.add(temp);
 				}
 			}
@@ -46,10 +46,16 @@ public class TicketServiceImpl implements ITicketService{
 		}
 		return lowPriceTk;
 	}
-	
+
 	@Override
 	public ArrayList<Ticket> selectAllTicketsByTripId(long idt) throws Exception {
-			return trRepo.findTicketsByIdt(idt);
+		if(idt > 0) {
+			return tkRepo.findByTripsIdt(idt);	
+		}
+		else {
+			throw new Exception("ID must be positive");
+		}
+		
 	}
 	
 	@Override
@@ -81,14 +87,14 @@ public class TicketServiceImpl implements ITicketService{
 	}
 	
 	@Override
-	public void insertNewTicketByTripId(long idt, float price, boolean isChild, Cashier cashier) throws Exception {
-		if(idt > 0) {
+	public void insertNewTicketByTripId(long idt, float price, boolean child, long idc) throws Exception {
+		if(idt > 0 && idc > 0) {
 			Trip trip = trRepo.findById(idt).get();
 			Ticket ticket = new Ticket();
 			ticket.setTrips(trip);
 			ticket.setPrice(price);
-			ticket.setChild(isChild);
-			ticket.setCashiers(cashier);
+			ticket.setChild(child);
+			//ticket.setCashiers(cashier);
 			
 			trip.getTickets().add(ticket);
 			trRepo.save(trip);

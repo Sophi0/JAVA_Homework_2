@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.venta.models.City;
+import lv.venta.models.Driver;
 import lv.venta.models.Trip;
 import lv.venta.repos.IDriverRepo;
 import lv.venta.repos.ITripRepo;
@@ -22,6 +23,11 @@ public class TripServiceImpl implements ITripService{
 	@Autowired
     private IDriverRepo drRepo;
 
+	@Override
+	public ArrayList<Trip> retrieveAllTrips() {
+		return (ArrayList<Trip>) trRepo.findAll();
+	}
+	
 	@Override
 	public ArrayList<Trip> selectTripByCityTitle(String inputTitle) throws Exception {
 		if(inputTitle.length() == 0 || inputTitle.isEmpty()) {
@@ -82,6 +88,7 @@ public class TripServiceImpl implements ITripService{
 				if(Objects.equals(temp.getIdt(), idt)) {
 					//so we set the driver of the current trip object 'temp' to the driver object 
 					temp.setDriver(drRepo.findById(idd).get());
+					trRepo.save(temp);
 				}
 			}
 		}

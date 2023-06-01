@@ -14,7 +14,12 @@ public class TripController {
 	@Autowired
 	private ITripService tripService;
 	
-	//CHECK ONE MORE TIME TWO LAST FUNCTIONS
+	
+	@GetMapping(value = "/trip/showAll")	//localhost:8080/trip/showAll
+	public String getAllDriversFunc(Model model) {
+		model.addAttribute("trip", tripService.retrieveAllTrips());
+		return "all-trip-page";	//will show all-drivers-page.html
+	}
 	
 	@GetMapping(value = "/trip/showAll/city/{title}")	//localhost:8080/trip/showAll/city/{title}
 	public String getAllCityByCityTitleFunc(@PathVariable("title") String title, Model model) {
@@ -51,11 +56,12 @@ public class TripController {
 			return "error-page";
 		}
 	}
-	/*
-	@GetMapping(value = "/trip/changeDriver/{idt}/{idd}")	//localhsot:8080/trip/changeDriver/1/1
+	
+	@GetMapping(value = "/trip/changeDriver/{idt}/{idd}")	//localhost:8080/trip/changeDriver/1/1
 	public String getChangeDriver(@PathVariable("idt") long idt, @PathVariable("idd") long idd, Model model) {
 		try {
-			model.addAttribute("trip", tripService.changeTripDriverByDriverId(idt, idd));
+			tripService.changeTripDriverByDriverId(idt, idd);
+			model.addAttribute("trip", tripService.retrieveAllTrips());
 			return "redirect:/trip/showAll";
 		}
 		catch (Exception e) {
@@ -63,5 +69,5 @@ public class TripController {
 			return "error-page";
 		}
 	}
-	*/
+	
 }

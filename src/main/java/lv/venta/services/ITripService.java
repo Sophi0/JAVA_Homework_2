@@ -3,6 +3,7 @@ package lv.venta.services;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import lv.venta.models.Driver;
 import lv.venta.models.Trip;
 
 public interface ITripService {
@@ -14,5 +15,7 @@ public interface ITripService {
 	ArrayList<Trip> selectTripsToday() throws Exception;
 	
 	public abstract void changeTripDriverByDriverId(long idd, long idt) throws Exception;
+
+	ArrayList<Trip> retrieveAllTrips();
 	
 }

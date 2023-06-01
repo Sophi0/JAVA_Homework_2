@@ -18,5 +18,5 @@ public interface ITicketService {
 	
 	float calculateIncomeOfCashierByCashierId(long idc) throws Exception;
 	
-	public abstract void insertNewTicketByTripId(long idt, float price, boolean isChild, Cashier cashier) throws Exception;
+	public abstract void insertNewTicketByTripId(long idt, float price, boolean child, long idc) throws Exception;
 }

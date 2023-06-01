@@ -19,7 +19,6 @@ public class TicketController {
 	@Autowired
 	private ITicketService ticketService;
 	
-	//CHECK FROM THIRD FUNCTION. MAYBE NEED TO CHANGE IN TICKET CLASS ISCHILD GET AND SET PARAMETRS
 	
 	@GetMapping(value = "/ticket/showAll/isChild")	//localhost:8080/ticket/showAll/isChild
 	public String getAllChildren(Model model) {
@@ -50,24 +49,24 @@ public class TicketController {
 			return "error-page";
 		}
 	}
-	
+
 	@GetMapping(value = "/ticket/calculate/trip/{id}")	//localhost:8080/ticket/calculate/trip/{id}
 	public String getIncomeForTripById(Model model, @PathVariable("id") long id) {
 		try {
-			model.addAttribute("ticket", ticketService.calculateIncomeOfTripByTripId(id));
-			return "all-ticket-page";
+			model.addAttribute("sum", ticketService.calculateIncomeOfTripByTripId(id));
+			return "income-page";
 		}
 		catch (Exception e) {
 			model.addAttribute("msg", e.getMessage());
 			return "error-page";
 		}
 	}
-	
+
 	@GetMapping(value = "/ticket/calculate/cashier/{id}")	//localhost:8080/ticket/calculate/cashier/{id}
 	public String getIncomeForCashierByid(Model model, @PathVariable("id") long id) {
 		try {
-			model.addAttribute("ticket", ticketService.calculateIncomeOfCashierByCashierId(id));
-			return "all-ticket-page";
+			model.addAttribute("inc", ticketService.calculateIncomeOfCashierByCashierId(id));
+			return "income-cashier-page";
 		}
 		catch (Exception e) {
 			model.addAttribute("msg", e.getMessage());
@@ -75,23 +74,25 @@ public class TicketController {
 		}
 	}
 	
-	@GetMapping(value = "ticket/add/{id}")	//localhost:8080/ticket/add/{id}
-	public String getAddTicketToTripById(@PathVariable("id") long id, Model model) {
+	//CHECK OME MORE TIME THIS FUNCTION
+	@GetMapping(value = "ticket/add/{id}/{idc}")	//localhost:8080/ticket/add/{id}/{idc}
+	public String getAddTicketToTripById(@PathVariable("id") long id, @PathVariable("idc") long idc, Model model) {
 		model.addAttribute("ticket", new Ticket());
+		model.addAttribute("idc", idc);
 		return "add-ticket-page";
 	}
 	
-	/*
-	@PostMapping("/ticket/add/{id}")
-    public String postAddTicketToTripById(@Valid Ticket ticket, BindingResult result, @PathVariable("id") long id) {
+	
+	@PostMapping("/ticket/add/{id}/{idc}")
+    public String postAddTicketToTripById(@Valid Ticket ticket, BindingResult result, @PathVariable("id") long id, @PathVariable("idc") long idc) {
         if (!result.hasErrors()) {
             try {
-                ticketService.insertNewTicketByTripId(id, ticket.getPrice(), ticket.getIsChild(), ticket.getCashiers());
-                return "redirect:/ticket/showAll/trip/" + id;
+                ticketService.insertNewTicketByTripId(id, ticket.getPrice(), ticket.getChild(), idc);
+                return "redirect:/ticket/showAll/trip/" + id + idc;
             } catch (Exception e) {
                 return "redirect:/error";
             }
         } else return "add-ticket-page";
     }
-    */
+    
 }
